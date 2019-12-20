@@ -11,6 +11,11 @@ namespace Robot
 
         public bool Place(Position position)
         {
+            if (_world.Contains(position.Coordinate)) {
+                _position = position;
+                return true;
+            }
+            
             return false;
         }
 
@@ -32,7 +37,7 @@ namespace Robot
         public Position? Report() => _position;
 
         Position? _position;
-        World _world;
+        readonly World _world;
 
     }
 }

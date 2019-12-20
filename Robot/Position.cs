@@ -4,15 +4,13 @@ namespace Robot
 {
     public struct Position
     {
-        public Position(uint x, uint y, Direction direction)
+        public Position(Coordinate coordinate, Direction direction)
         {
-            X = x;
-            Y = y;
+            Coordinate = coordinate;
             Direction = direction;
         }
 
-        public uint X { get; }
-        public uint Y { get; }
+        public Coordinate Coordinate { get; }
         public Direction Direction { get; } 
     }
 }
