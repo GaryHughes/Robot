@@ -21,6 +21,28 @@ namespace Robot
 
         public bool Move()
         {
+            if (_position is Position position) {
+                
+                var (deltaX, deltaY) = position switch {
+                    var (_, _, direction) when direction == Direction.North => (0, 1),
+                    var (_, _, direction) when direction == Direction.East => (1, 0),
+                    var (_, y, direction) when direction == Direction.South && y > 0 => (0, -1),
+                    var (x, _, direction) when direction == Direction.West && x > 0 => (-1, 0),
+                    var (_, _, _) => (0, 0)
+                };
+
+                if (deltaX == 0 && deltaY == 0) {
+                    return false;
+                }
+
+                int newX = ((int)position.Coordinate.X) + deltaX;
+                int newY = ((int)position.Coordinate.Y) + deltaY;
+
+                var newCoordinate = new Coordinate((uint)newX, (uint)newY);
+
+                return Place(new Position(newCoordinate, position.Direction));
+            }    
+
             return false;
         }
 

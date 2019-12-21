@@ -176,5 +176,85 @@ namespace Robot.Tests
             Assert.IsTrue(robot.Right());
             Assert.AreEqual(Direction.North, robot.Report()?.Direction);
         }
+
+        [TestMethod]
+        public void TestInvalidMoveNorth()
+        {
+            var world = new World(width:5, height:5);
+            var robot = new Robot(world);
+            Assert.IsTrue(robot.Place(new Position(new Coordinate(0, 4), Direction.North)));
+            Assert.IsFalse(robot.Move());
+            Assert.AreEqual(new Position(new Coordinate(0, 4), Direction.North), robot.Report());
+        } 
+
+        [TestMethod]
+        public void TestInvalidMoveEast()
+        {
+            var world = new World(width:5, height:5);
+            var robot = new Robot(world);
+            Assert.IsTrue(robot.Place(new Position(new Coordinate(4, 0), Direction.East)));
+            Assert.IsFalse(robot.Move());
+            Assert.AreEqual(new Position(new Coordinate(4, 0), Direction.East), robot.Report());
+        }
+
+        [TestMethod]
+        public void TestInvalidMoveSouth()
+        {
+            var world = new World(width:5, height:5);
+            var robot = new Robot(world);
+            Assert.IsTrue(robot.Place(new Position(new Coordinate(0, 0), Direction.South)));
+            Assert.IsFalse(robot.Move());
+            Assert.AreEqual(new Position(new Coordinate(0, 0), Direction.South), robot.Report());
+        }
+
+        [TestMethod]
+        public void TestInvalidMoveWest()
+        {
+            var world = new World(width:5, height:5);
+            var robot = new Robot(world);
+            Assert.IsTrue(robot.Place(new Position(new Coordinate(0, 0), Direction.West)));
+            Assert.IsFalse(robot.Move());
+            Assert.AreEqual(new Position(new Coordinate(0, 0), Direction.West), robot.Report());
+        }
+
+        [TestMethod]
+        public void TestValidMoveNorth()
+        {
+            var world = new World(width:5, height:5);
+            var robot = new Robot(world);
+            Assert.IsTrue(robot.Place(new Position(new Coordinate(0, 3), Direction.North)));
+            Assert.IsTrue(robot.Move());
+            Assert.AreEqual(new Position(new Coordinate(0, 4), Direction.North), robot.Report());
+        } 
+
+        [TestMethod]
+        public void TestValidMoveEast()
+        {
+            var world = new World(width:5, height:5);
+            var robot = new Robot(world);
+            Assert.IsTrue(robot.Place(new Position(new Coordinate(3, 0), Direction.East)));
+            Assert.IsTrue(robot.Move());
+            Assert.AreEqual(new Position(new Coordinate(4, 0), Direction.East), robot.Report());
+        }
+
+        [TestMethod]
+        public void TestValidMoveSouth()
+        {
+            var world = new World(width:5, height:5);
+            var robot = new Robot(world);
+            Assert.IsTrue(robot.Place(new Position(new Coordinate(0, 1), Direction.South)));
+            Assert.IsTrue(robot.Move());
+            Assert.AreEqual(new Position(new Coordinate(0, 0), Direction.South), robot.Report());
+        }
+
+        [TestMethod]
+        public void TestValidMoveWest()
+        {
+            var world = new World(width:5, height:5);
+            var robot = new Robot(world);
+            Assert.IsTrue(robot.Place(new Position(new Coordinate(1, 0), Direction.West)));
+            Assert.IsTrue(robot.Move());
+            Assert.AreEqual(new Position(new Coordinate(0, 0), Direction.West), robot.Report());
+        }
     }
 }
