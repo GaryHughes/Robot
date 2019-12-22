@@ -6,13 +6,13 @@ namespace Robot
     {
         public Robot(World world)
         {
-            _world = world;
+            World = world;
         }
 
         public bool Place(Position position)
         {
-            if (_world.Contains(position.Coordinate)) {
-                _position = position;
+            if (World.Contains(position.Coordinate)) {
+                Position = position;
                 return true;
             }
             
@@ -21,7 +21,7 @@ namespace Robot
 
         public bool Move()
         {
-            if (_position is Position position) {
+            if (Position is Position position) {
                 
                 var (deltaX, deltaY) = position switch {
                     var (_, _, direction) when direction == Direction.North => (0, 1),
@@ -48,7 +48,7 @@ namespace Robot
 
         public bool Left()
         {
-            if (_position is Position position) {
+            if (Position is Position position) {
                 var newDirection = position.Direction switch {
                     Direction.North => Direction.West,
                     Direction.East => Direction.North,
@@ -56,7 +56,7 @@ namespace Robot
                     Direction.West => Direction.South,
                     _ => throw new Exception($"Invalid value for direction {position.Direction}")
                 };
-                _position = new Position(position.Coordinate, newDirection);
+                Position = new Position(position.Coordinate, newDirection);
                 return true;
             }
 
@@ -65,7 +65,7 @@ namespace Robot
 
         public bool Right()
         {
-            if (_position is Position position) {
+            if (Position is Position position) {
                 var newDirection = position.Direction switch {
                     Direction.North => Direction.East,
                     Direction.East => Direction.South,
@@ -73,17 +73,19 @@ namespace Robot
                     Direction.West => Direction.North,
                     _ => throw new Exception($"Invalid value for direction {position.Direction}")
                 };
-                _position = new Position(position.Coordinate, newDirection);
+                Position = new Position(position.Coordinate, newDirection);
                 return true;
             }
 
             return false;
         }
 
-        public Position? Report() => _position;
+        public Position? Report() => Position;
 
-        Position? _position;
-        readonly World _world;
+
+        public World World { get; }
+
+        public Position? Position { get; private set; }
 
     }
 }

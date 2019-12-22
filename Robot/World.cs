@@ -14,16 +14,30 @@ namespace Robot
                 throw new ArgumentException($"{nameof(height)} cannot be zero", nameof(height));
             }
 
-            _width = width;
-            _height = height;
+            Width = width;
+            Height = height;
         }
 
         public bool Contains(Coordinate coordinate)
         {
-            return coordinate.X < _width && coordinate.Y < _height;
+            return coordinate.X < Width && coordinate.Y < Height;
         }
 
-        readonly uint _width;
-        readonly uint _height;
+        public uint Width { get; }
+        public uint Height { get; }
+
+        public override string ToString() => $"Width={Width} Height={Height}";
+
+        public override bool Equals(object obj)
+        {
+            if (obj is World world) {
+                return world.Width == Width && world.Height == Height;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode() => HashCode.Combine(Width, Height);
+
     }
 }

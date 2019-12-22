@@ -1,0 +1,8 @@
+{
+    "Robot": {
+        "World": {
+            "Width": 5,
+            "Height": 5
+        }
+    }
+}
