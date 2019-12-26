@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
@@ -45,18 +43,20 @@ namespace Robot.Backend.Controllers
         {
             try {
                 if (GetRobot().Report() is Position position) { 
-                    return Accepted(new {
+                    return new JsonResult(new {
                         position.Coordinate.X,
                         position.Coordinate.Y,
                         Direction = position.Direction.ToString()
-                    });
+                    }) {
+                        StatusCode = (int)HttpStatusCode.OK
+                    };
                 }
             }    
             catch (Exception ex) {
-                return BadRequest(ex);
+                return Problem(ex.Message);
             }
 
-            return Accepted();
+            return Ok();
         }
 
         [HttpPut]
@@ -66,10 +66,10 @@ namespace Robot.Backend.Controllers
                 PerformRobotAction(robot => robot.Move());
             }
             catch (Exception ex) {
-                return BadRequest(ex);
+                return Problem(ex.Message);
             }
 
-            return Accepted();    
+            return Report();    
         }
 
         [HttpPut]
@@ -79,10 +79,10 @@ namespace Robot.Backend.Controllers
                 PerformRobotAction(robot => robot.Left());
             }
             catch (Exception ex) {
-                return BadRequest(ex);
+                return Problem(ex.Message);
             }
 
-            return Accepted();    
+            return Report();    
         }
 
         [HttpPut]
@@ -92,10 +92,10 @@ namespace Robot.Backend.Controllers
                 PerformRobotAction(robot => robot.Right());
             }
             catch (Exception ex) {
-                return BadRequest(ex);
+                return Problem(ex.Message);
             }
 
-            return Accepted();    
+            return Report();    
         }
 
         [HttpPut("{x}/{y}/{direction}")]
@@ -109,10 +109,10 @@ namespace Robot.Backend.Controllers
                 PerformRobotAction(robot => robot.Place(new Position(new Coordinate(x, y), direction)));
             }
             catch (Exception ex) {
-                return BadRequest(ex);
+                return Problem(ex.Message);
             }
 
-            return Accepted();    
+            return Report();    
         }
 
     }

@@ -43,10 +43,6 @@ namespace Robot.Backend
             
             app.UseEndpoints(endpoints =>
             {
-                // endpoints.MapControllerRoute(
-                //     name: "place",
-                //     pattern: "{controller}/{action=Index}/{id?}");
-
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
