@@ -29,6 +29,7 @@ namespace Robot.Backend
                         throw new Exception("Cannot determine file system path of executing assembly");
                     }
                     config.AddJsonFile(Path.Combine(path, "robot.json"), optional:false, reloadOnChange:true);
+                    config.AddJsonFile(Path.Combine(path, "hosting.json"), optional:true, reloadOnChange:true);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

@@ -1,14 +1,51 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronLeft, faChevronRight, faChevronUp, faChevronDown, faUndo, faRedo, faWalking } from '@fortawesome/free-solid-svg-icons'
+import { faUndo, faRedo, faWalking } from '@fortawesome/free-solid-svg-icons'
 import * as api from './RobotApi'
+import { Robot } from './Robot'
 import './Home.css'
 
 export class Home extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      robotX: null,
+      robotY: null,
+      robotDirection: null  
+    };
+
+    this.performAction = this.performAction.bind(this);
+  }
+
+  async performAction(action) {
+
+    const response = await action();
+
+    //console.log(response);
+
+    const data = await response.json();
+    
+    console.log(data);
+
+    this.setState(data);
+
+  }
+
   render () {
+    
     const rows = 5;
     const cols = 5;
+    
+    const {
+      x,
+      y,
+      direction
+    } = this.state;
+
+    const robotHasBeenPlaced = x >= 0 && y >= 0 && direction;
+    
     return (
       <div className="grid">
       <br></br>
@@ -22,9 +59,9 @@ export class Home extends Component {
                   let key = `${row}=${col}`;
                   return (
                     <div className="box" key={key}>
-                      <div className="inner" onClick={e => Robot.place(row, col)}>
-                        
-                      </div>
+                      <div className="inner" onClick={() => this.performAction(async () => await api.place(col, row, 'North'))}>
+                        { robotHasBeenPlaced && x == col && y == row && <Robot direction={direction}/> }
+                    </div>
                     </div>
                   );
                 })
@@ -35,13 +72,9 @@ export class Home extends Component {
         }
         <br></br>
         <div className="row">
-          <div className="box"><div className="inner" title="Face West" onClick={api.faceWest}><FontAwesomeIcon icon={faChevronLeft} /></div></div>
-          <div className="box"><div className="inner" title="Face North" onClick={api.faceNorth}><FontAwesomeIcon icon={faChevronUp} /></div></div>
-          <div className="box"><div className="inner" title="Face East" onClick={api.faceEast}><FontAwesomeIcon icon={faChevronRight} /></div></div>
-          <div className="box"><div className="inner" title="Face South" onClick={api.faceSouth}><FontAwesomeIcon icon={faChevronDown} /></div></div>
-          <div className="box"><div className="inner" title="Turn Left" onClick={api.turnLeft}><FontAwesomeIcon icon={faUndo} /></div></div>
-          <div className="box"><div className="inner" title="Turn Right" onClick={api.turnRight}><FontAwesomeIcon icon={faRedo} /></div></div>
-          <div className="box"><div className="inner" title="Move Forward" onClick={api.move}><FontAwesomeIcon icon={faWalking} /></div></div>
+          <div className="box"><div className="inner" title="Turn Left" onClick={() => this.performAction(async () => await api.turnLeft())}><FontAwesomeIcon icon={faUndo} /></div></div>
+          <div className="box"><div className="inner" title="Turn Right" onClick={() => this.performAction(async () => await api.turnRight())}><FontAwesomeIcon icon={faRedo} /></div></div>
+          <div className="box"><div className="inner" title="Move Forward" onClick={() => this.performAction(async () => await api.move())}><FontAwesomeIcon icon={faWalking} /></div></div>
         </div>
       </div>
     );

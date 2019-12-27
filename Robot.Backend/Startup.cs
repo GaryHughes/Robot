@@ -40,7 +40,7 @@ namespace Robot.Backend
 
             app.UseRouting();
             app.UseSession();
-            
+         
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
