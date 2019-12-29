@@ -38,6 +38,13 @@ namespace Robot.Backend.Controllers
             HttpContext.Session.Set(robot);
         }
 
+        [HttpGet("/")]
+        public IActionResult Index()
+        {
+            // This endpoint is used by GCP health checks.
+            return Report();
+        }
+
         [HttpGet]
         public IActionResult Report()
         {
