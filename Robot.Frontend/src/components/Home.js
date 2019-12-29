@@ -8,12 +8,13 @@ import './Home.css'
 export class Home extends Component {
 
   constructor(props) {
+    
     super(props);
 
     this.state = {
-      robotX: null,
-      robotY: null,
-      robotDirection: null  
+      x: null,
+      y: null,
+      direction: null  
     };
 
     this.performAction = this.performAction.bind(this);
@@ -60,7 +61,7 @@ export class Home extends Component {
                   return (
                     <div className="box" key={key}>
                       <div className="inner" onClick={() => this.performAction(async () => await api.place(col, row, 'North'))}>
-                        { robotHasBeenPlaced && x == col && y == row && <Robot direction={direction}/> }
+                        { robotHasBeenPlaced && x === col && y === row && <Robot direction={direction}/> }
                     </div>
                     </div>
                   );

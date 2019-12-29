@@ -19,6 +19,8 @@ export class Robot extends Component {
                 return (<FontAwesomeIcon icon={faChevronDown} />);
             case 'West':
                 return (<FontAwesomeIcon icon={faChevronLeft} />);
+            default:
+                return (<div></div>);
         }
     }
 
