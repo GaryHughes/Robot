@@ -42,7 +42,22 @@ namespace Robot.Backend.Controllers
         public IActionResult Index()
         {
             // This endpoint is used by GCP health checks.
-            return Report();
+            return Ok();
+        }
+
+        [HttpGet]
+        public IActionResult World()
+        {
+            try {
+                var robot = GetRobot();
+                return new JsonResult(new {
+                    robot.World.Width,
+                    robot.World.Height
+                });
+            }    
+            catch (Exception ex) {
+                return Problem(ex.Message);
+            }
         }
 
         [HttpGet]

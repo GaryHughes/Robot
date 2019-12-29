@@ -12,6 +12,8 @@ export class Home extends Component {
     super(props);
 
     this.state = {
+      width: null,
+      height: null,
       x: null,
       y: null,
       direction: null  
@@ -24,29 +26,37 @@ export class Home extends Component {
 
     const response = await action();
 
+    // TODO
     //console.log(response);
 
     const data = await response.json();
     
-    console.log(data);
-
     this.setState(data);
+}
 
+  async componentDidMount() {
+    await this.performAction(async () => await api.world());  
   }
 
   render () {
-    
-    const rows = 5;
-    const cols = 5;
-    
+   
     const {
+      width,
+      height,
       x,
       y,
       direction
     } = this.state;
 
+    if (!width || !height) {
+      return (<div>Loading...</div>)  
+    }
+
     const robotHasBeenPlaced = x >= 0 && y >= 0 && direction;
-    
+   
+    const rows = height;
+    const cols = width;
+   
     return (
       <div className="grid">
       <br></br>
