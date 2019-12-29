@@ -1,0 +1,14 @@
+# Build using the SDK image
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as build-env
+RUN apt-get update && apt-get install -y npm
+WORKDIR /robot/backend
+COPY . .
+RUN dotnet publish Robot.Backend -c Release -o out
+
+# Deploy with the runtime image
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+WORKDIR /robot/backend
+COPY --from=build-env /robot/backend/out .
+
+EXPOSE 8090
+ENTRYPOINT [ "/robot/backend/Robot.Backend" ]

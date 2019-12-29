@@ -1,0 +1,14 @@
+# Build using the SDK image
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as build-env
+RUN apt-get update && apt-get install -y npm
+WORKDIR /robot/frontend
+COPY . .
+RUN dotnet publish Robot.Frontend -c Release -o out
+
+# Deploy with the runtime image
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
+WORKDIR /robot/frontend
+COPY --from=build-env /robot/frontend/out .
+
+EXPOSE 8080
+ENTRYPOINT [ "/robot/frontend/Robot.Frontend" ]
