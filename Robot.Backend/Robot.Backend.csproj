@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <None Include="robot.json" CopyToOutputDirectory="Always" />
+    <None Include="hosting.json" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
 </Project>
