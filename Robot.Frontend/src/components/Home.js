@@ -16,7 +16,8 @@ export class Home extends Component {
       height: null,
       x: null,
       y: null,
-      direction: null  
+      direction: null,
+      usage: null
     };
 
     this.performAction = this.performAction.bind(this);
@@ -24,14 +25,16 @@ export class Home extends Component {
 
   async performAction(action) {
 
-    const response = await action();
-
-    // TODO
-    //console.log(response);
-
-    const data = await response.json();
-    
+    let response = await action();
+    // TODO error handling
+    let data = await response.json();
     this.setState(data);
+
+    // Update the usage status automatically.
+    response = await api.usage();
+    // TODO error handling
+    data = await response.json();
+    this.setState({ usage: data.counts });
 }
 
   async componentDidMount() {
@@ -45,7 +48,8 @@ export class Home extends Component {
       height,
       x,
       y,
-      direction
+      direction,
+      usage
     } = this.state;
 
     if (!width || !height) {
@@ -86,6 +90,24 @@ export class Home extends Component {
           <div className="box"><div className="inner" title="Turn Left" onClick={() => this.performAction(async () => await api.turnLeft())}><FontAwesomeIcon icon={faUndo} /></div></div>
           <div className="box"><div className="inner" title="Turn Right" onClick={() => this.performAction(async () => await api.turnRight())}><FontAwesomeIcon icon={faRedo} /></div></div>
           <div className="box"><div className="inner" title="Move Forward" onClick={() => this.performAction(async () => await api.move())}><FontAwesomeIcon icon={faWalking} /></div></div>
+        </div>
+        <br></br>
+        <div>
+          <table className="table">
+            <thead>
+              <tr><td>Action</td><td>Count</td></tr>
+            </thead>
+            <tbody>
+              {
+                usage && usage.map(item => 
+                  <tr key={item.action}>
+                    <td>{item.action}</td>
+                    <td>{item.count}</td>
+                  </tr>
+                )
+              }
+            </tbody>
+          </table>
         </div>
       </div>
     );

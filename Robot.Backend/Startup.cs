@@ -16,14 +16,20 @@ namespace Robot.Backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDistributedMemoryCache();
-            services.AddControllers();
-            services.AddSession(options =>
-            {
+            
+            var usageFilter = new ApiUsageFilter();
+            services.AddSingleton(usageFilter);
+            services.AddControllers(config => {
+                config.Filters.Add(usageFilter);
+            });
+            
+            services.AddSession(options => {
                 // TODO - check these
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+            
             services.AddApiVersioning(options => {
                 options.ReportApiVersions = true;
                 options.AssumeDefaultVersionWhenUnspecified = true;

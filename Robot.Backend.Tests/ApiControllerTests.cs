@@ -35,7 +35,7 @@ namespace Robot.Backend.Tests
                 .AddJsonStream(stream)
                 .Build();
             
-            Controller = new ApiController(logger, configuration);
+            Controller = new ApiController(logger, configuration, null);
 
             Controller.ControllerContext.HttpContext = new TestHttpContext {
                 Session = new TestSession()
@@ -289,6 +289,24 @@ namespace Robot.Backend.Tests
             expected = new { X = 0u, Y = 0u, Direction = Direction.West.ToString() };
             actual = result.Value;
             Assert.AreEqual(expected.ToString(), actual.ToString());
-        }    
+        } 
+
+        /*
+        // TODO: This requires a lot of extra plumbing for the DI container.
+        [TestMethod]
+        public void TestUsage()
+        {
+            Controller.Place(1, 0, Direction.West);
+            Controller.Move();
+            var result = Controller.Usage() as JsonResult;
+            Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
+            var expected = new { Counts = new [] { 
+                new { Action = "Place", Count = 1},
+                new { Action = "Move", Count = 1} } 
+            };
+            var actual = result.Value;
+            Assert.AreEqual(expected.ToString(), actual.ToString());
+        }
+        */ 
     }
 }

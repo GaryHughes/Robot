@@ -9,6 +9,10 @@ let apiEndpoint;
 //}
 apiEndpoint = "http://localhost:8080/"
 
+export async function usage() {
+    return await fetch(apiEndpoint + 'Api/1.0/Usage');
+}
+
 export async function world() {
     return await fetch(apiEndpoint + 'Api/1.0/World');
 }
@@ -26,7 +30,6 @@ export async function move() {
 }
 
 export async function place(x, y, direction) {
-    console.log('HOSTNAME: ' + hostname);
     return await fetch(apiEndpoint + `Api/1.0/Place/${x}/${y}/${direction}`, { method: 'put' });
 }
 
