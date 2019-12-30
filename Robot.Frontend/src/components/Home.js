@@ -24,18 +24,19 @@ export class Home extends Component {
   }
 
   async performAction(action) {
-
-    let response = await action();
-    // TODO error handling
-    let data = await response.json();
-    this.setState(data);
-
-    // Update the usage status automatically.
-    response = await api.usage();
-    // TODO error handling
-    data = await response.json();
-    this.setState({ usage: data.counts });
-}
+    try {
+      let response = await action();
+      let data = await response.json();
+      this.setState(data);
+      // Update the usage status automatically.
+      response = await api.usage();
+      data = await response.json();
+      this.setState({ usage: data.counts });
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
 
   async componentDidMount() {
     await this.performAction(async () => await api.world());  
