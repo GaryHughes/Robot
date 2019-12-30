@@ -13,5 +13,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.100
-    - name: Build with dotnet
+    - name: Build
       run: dotnet build Robot.sln --configuration Release
+    - name: Test
+      run: dotnet test Robot.sln --configuration Release
+    - name: Publish
+      run: dotnet publish Robot.sln --configuration Release
