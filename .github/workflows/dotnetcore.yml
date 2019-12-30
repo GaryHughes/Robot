@@ -8,17 +8,45 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.100
+    
     - name: Build
       run: dotnet build Robot.sln --configuration Release
+    
     - name: Test
       run: dotnet test Robot.sln --configuration Release
+    
     - name: Publish
       run: dotnet publish Robot.sln --configuration Release
+   
     - name: Build Docker Image - Backend
       run: docker build --tag asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_BACKEND_APP_NAME }} -f Dockerfile.backend .
+    
     - name: Build Docker Image - Frontend
       run: docker build --tag asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_FRONTEND_APP_NAME }} -f Dockerfile.frontend .
+
+    - name: Authenticate into Google Cloud Platform
+      uses: actions/gcloud/auth@master
+      env:
+        GCLOUD_AUTH: ${{ secrets.GCLOUD_AUTH }}
+
+    - name: Configure Docker to use Google Cloud Platform
+      uses: actions/gcloud/cli@master
+      with:
+        args: "auth configure-docker --quiet"
+
+    - name: Push Backend image to Google Cloud Container Registry
+      uses: actions/gcloud/cli@master
+      with:
+        entrypoint: sh
+        args: -c "docker push asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_BACKEND_APP_NAME }}"
+
+    - name: Push Frontend image to Google Cloud Container Registry
+      uses: actions/gcloud/cli@master
+      with:
+        entrypoint: sh
+        args: -c "docker push asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_FRONTEND_APP_NAME }}"
