@@ -22,4 +22,4 @@ jobs:
     - name: Build Docker Image - Backend
       run: docker build . --tag asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_BACKEND_APP_NAME }}
     - name: Build Docker Image - Frontend
-      run: docker build . --tag asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_BACKEND_APP_NAME }}
+      run: docker build . --tag asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_FRONTEND_APP_NAME }}
