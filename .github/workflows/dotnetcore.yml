@@ -20,6 +20,6 @@ jobs:
     - name: Publish
       run: dotnet publish Robot.sln --configuration Release
     - name: Build Docker Image - Backend
-      run: docker build . --tag asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_BACKEND_APP_NAME }}
+      run: docker build --tag asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_BACKEND_APP_NAME }} -f Dockerfile.backend .
     - name: Build Docker Image - Frontend
-      run: docker build . --tag asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_FRONTEND_APP_NAME }}
+      run: docker build . --tag asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_FRONTEND_APP_NAME }} -f Dockerfile.frontend .
