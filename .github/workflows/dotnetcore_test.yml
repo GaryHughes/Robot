@@ -14,4 +14,4 @@ jobs:
       with:
         dotnet-version: 3.1.100
     - name: Run unit tests
-      run: dotnet test --configuration Release
+      run: dotnet test Robot.sln --configuration Release
