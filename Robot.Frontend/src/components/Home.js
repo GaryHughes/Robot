@@ -63,7 +63,10 @@ export class Home extends Component {
    
     return (
       <div className="grid">
-      <br></br>
+        <br></br>
+        <span>Click to place the robot at any time. Once the robot has been placed use the command controls under the grid to control it.</span>
+        <br></br>
+        <br></br>
         {
           Array.from({ length: rows }, (value, row) => { 
             let rowKey = `${row}`;
