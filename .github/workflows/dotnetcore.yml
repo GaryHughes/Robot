@@ -36,14 +36,14 @@ jobs:
         service_account_key: ${{ secrets.GCP_SA_KEY }}
     - run: gcloud info
   
-#     - name: Push Backend image to Google Cloud Container Registry
-#       uses: actions/gcloud/cli@master
-#       with:
-#         entrypoint: sh
-#         args: -c "docker push asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_BACKEND_APP_NAME }}"
+    - name: Push Backend image to Google Cloud Container Registry
+      uses: actions/gcloud/cli@master
+      with:
+        entrypoint: sh
+        args: -c "docker push asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_BACKEND_APP_NAME }}"
 
-#     - name: Push Frontend image to Google Cloud Container Registry
-#       uses: actions/gcloud/cli@master
-#       with:
-#         entrypoint: sh
-#         args: -c "docker push asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_FRONTEND_APP_NAME }}"
+    - name: Push Frontend image to Google Cloud Container Registry
+      uses: actions/gcloud/cli@master
+      with:
+        entrypoint: sh
+        args: -c "docker push asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_FRONTEND_APP_NAME }}"
