@@ -2,8 +2,6 @@
 
 ![](https://github.com/GaryHughes/Robot/workflows/Robot%20Build/badge.svg)
 
-![](https://github.com/GaryHughes/Robot/workflows/Robot%20Test/badge.svg)
-
 ## Overview ##
 
 Robot is a simple application that allows the user to direct a robot around a world described by a grid.
