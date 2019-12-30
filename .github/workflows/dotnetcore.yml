@@ -34,7 +34,12 @@ jobs:
       with:
         version: '270.0.0'
         service_account_key: ${{ secrets.GCP_SA_KEY }}
-        entrypoint: sh
-        args: -c "docker push asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_BACKEND_APP_NAME }}"
   
-    
+    - name: Configure docker to authenticate via gcloud
+      run: gcloud auth configure-docker
+      
+    - name: Publish Backend Image
+      run: docker push asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_BACKEND_APP_NAME }}
+
+    - name: Publish Frontend Image
+      run: docker push asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_FRONTEND_APP_NAME }}
