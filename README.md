@@ -19,8 +19,7 @@ The application is comprised of the following components.
 |Robot.Frontend| An [ASP.Net Core](https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-3.1) application that serves a [React](https://reactjs.org) frontend that uses the Robot.Backend |
 |Robot.Backend| An [ASP.Net Core](https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-3.1) application that provides an API that drives the Robot library for the Robot.Frontend |
 
-![Robot](/robot_screenshot.png)
-
+<img src="robot_screenshot.png" width="606" height="1182">
 
 ## Notes ##
 
