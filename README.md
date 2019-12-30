@@ -1,5 +1,7 @@
 # Robot #
 
+This workflow builds the project, runs the tests, builds the docker containers, and pushes them to the Google Container Registry.
+
 ![](https://github.com/GaryHughes/Robot/workflows/Robot%20Build/badge.svg)
 
 ## Overview ##
