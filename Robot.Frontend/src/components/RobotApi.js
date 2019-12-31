@@ -1,13 +1,9 @@
 
-const hostname = window && window.location && window.location.hostname;
+let apiEndpoint = '';
 
-let apiEndpoint;
-
-//if (hostname !== 'url.com') {
-    // This is the ingress IP
-    //apiEndpoint = "http://35.241.14.209/";
-//}
-apiEndpoint = "http://localhost:8080/"
+if (process.env.REACT_APP_ROBOT_API_ENDPOINT) {
+    apiEndpoint = process.env.REACT_APP_ROBOT_API_ENDPOINT;
+}
 
 export async function usage() {
     return await fetch(apiEndpoint + 'Api/1.0/Usage');

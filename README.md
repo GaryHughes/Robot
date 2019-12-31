@@ -50,10 +50,18 @@ The listening endpoints for both Robot.Backend and Robot.Frontend can be configu
 }
 ```
 
+When running local processes for developmemnt the following proxy value in package.json needs to match the hosting.json file in Robot.Backend to avoid CORS errors.
+
+``` json
+},
+  "proxy": "http://localhost:8090"
+}
+```
+
 ## Deployment ##
 
-### Docker ###
+.env.production contains the following variable. 
 
+REACT_APP_ROBOT_API_ENDPOINT=http://&lt;ENDPOINT&GT;/
 
-
-### Kubernetes ###
+ENDPOINT needs to be able to serve both the front and back end applications to avoid CORS errors. For example it could be Google Cloud Ingress that routes /Api/ requests to the backend and anything else to the frontend.
