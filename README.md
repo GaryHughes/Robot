@@ -65,3 +65,7 @@ When running local processes for developmemnt the following proxy value in packa
 REACT_APP_ROBOT_API_ENDPOINT=http://&lt;ENDPOINT&GT;/
 
 ENDPOINT needs to be able to serve both the front and back end applications to avoid CORS errors. For example it could be Google Cloud Ingress that routes /Api/ requests to the backend and anything else to the frontend.
+
+## Google Clould Platform ##
+
+The GCP folder contains yaml exported from a sample deployment. This deployment has a frontend and backend workload, corresponding frontend and backend services, and an ingress that routes to these services.

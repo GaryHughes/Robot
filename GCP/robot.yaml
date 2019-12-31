@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/backends: '{"k8s-be-30644--207431b18f8a67fb":"HEALTHY","k8s-be-31845--207431b18f8a67fb":"HEALTHY"}'
+    ingress.kubernetes.io/forwarding-rule: k8s-fw-default-robot--207431b18f8a67fb
+    ingress.kubernetes.io/target-proxy: k8s-tp-default-robot--207431b18f8a67fb
+    ingress.kubernetes.io/url-map: k8s-um-default-robot--207431b18f8a67fb
+  creationTimestamp: "2019-12-29T00:28:24Z"
+  generation: 1
+  name: robot
+  namespace: default
+  resourceVersion: "34309"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/ingresses/robot
+  uid: 1fb7d02b-29d2-11ea-bea6-42010a80004b
+spec:
+  backend:
+    serviceName: robot-frontend-service
+    servicePort: 8080
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: robot-backend-service
+          servicePort: 8090
+        path: /Api/*
+status:
+  loadBalancer:
+    ingress:
+    - ip: 35.241.14.209

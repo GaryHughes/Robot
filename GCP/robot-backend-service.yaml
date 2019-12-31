@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2019-12-28T22:46:32Z"
+  labels:
+    app: robot-backend
+  name: robot-backend-service
+  namespace: default
+  resourceVersion: "3256"
+  selfLink: /api/v1/namespaces/default/services/robot-backend-service
+  uid: e4eceefb-29c3-11ea-bea6-42010a80004b
+spec:
+  clusterIP: 10.16.10.64
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 30644
+    port: 8090
+    protocol: TCP
+    targetPort: 8090
+  selector:
+    app: robot-backend
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 34.70.139.137
