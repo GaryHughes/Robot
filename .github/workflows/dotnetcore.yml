@@ -30,7 +30,7 @@ jobs:
       run: docker build --tag asia.gcr.io/${{ secrets.GCLOUD_PROJECT }}/${{ secrets.GCLOUD_FRONTEND_APP_NAME }} -f Dockerfile.frontend .
 
     - name: Setup gcloud
-      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@v0
       with:
         version: '270.0.0'
         service_account_key: ${{ secrets.GCP_SA_KEY }}
